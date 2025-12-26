@@ -89,6 +89,7 @@ vim.diagnostic.config({
 		},
 	},
 })
-local config_lua_ls = require("lsp.lua_ls")
-vim.lsp.config("lua_ls", config_lua_ls)
+-- local config_lua_ls = require("lsp.lua_ls")
+-- vim.lsp.config("lua_ls", config_lua_ls)
 vim.lsp.enable("lua_ls")
+vim.lsp.enable("phpactor")
