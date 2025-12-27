@@ -1,4 +1,5 @@
 -- ubicacion: nvim/lua/config/init.lua
 require("config.options")
 require("config.lazy")
-require("config.lsp")
+require("config.diagnostic")
+-- require("config.lsp")
