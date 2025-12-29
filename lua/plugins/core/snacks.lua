@@ -24,8 +24,45 @@ return {
 				-- wo = { wrap = true } -- Wrap notifications
 			},
 		},
+        terminal = {
+            win={
+                styles = "terminal",
+                position = "bottom",
+                keys = {
+                    term_normal={
+                        "<esc>",
+                        [[<C-\><C-n>]],
+                        mode = "t",
+                        expr = true,
+                        desc = "Regresar al modo normal",
+                    }
+                }
+            }
+        },
+        lazygit = {
+            win = {
+                position = "float"
+            }
+        }
+
 	},
 	keys = {
+        -- lazygit
+        {
+            "<leader>lg",
+            function ()
+                Snacks.lazygit()
+            end,
+            desc = "Lazygit"
+        },
+        -- terminal
+        {
+            "<leader>''",
+            function ()
+                Snacks.terminal()
+            end,
+            desc ="Terminal"
+        },
 		-- Top Pickers & Explorer
 		{
 			"<leader><space>",
