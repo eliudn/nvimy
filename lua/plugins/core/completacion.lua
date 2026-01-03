@@ -12,7 +12,7 @@ return {
 					require("luasnip.loaders.from_vscode").lazy_load()
 				end,
 			},
-			{ "echasnovski/mini.icons", opts = {} },
+			{ "nvim-mini/mini.icons", opts = {} },
 		},
 		version = "*",
 		---@module 'blink.cmp'
