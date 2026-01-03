@@ -27,3 +27,4 @@ vim.o.sidescrolloff = 4
 vim.o.showmode = false
 vim.o.clipboard = "unnamedplus"
 vim.o.conceallevel = 1
+vim.o.cmdheight = 0
