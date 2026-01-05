@@ -1,54 +1,79 @@
-return {
-	-- 1. Plugin Principal: Treesitter
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		-- Eliminamos branch = "main" ya que está causando inestabilidad
-		event = { "BufReadPost", "BufNewFile" },
-		opts = {
-			ensure_installed = {
-				"bash",
-				"c",
-				"diff",
-				"html",
-				"lua",
-				"luadoc",
-				"markdown",
-				"vim",
-				"vimdoc",
-				"php",
-				"blade",
-				"css",
-				"javascript",
-			},
-			highlight = { enable = true },
-			indent = { enable = true, disable = { "ruby" } },
-		},
-		config = function(_, opts)
-			require("nvim-treesitter.install").prefer_git = true
-			-- require("nvim-treesitter.configs").setup(opts)
-		end,
-	},
+return { -- Highlight, edit, and navigate code
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+    branch = "master",
+    opts = {
+        -- NOTE: nixCats: use lazyAdd to only set these 2 options if nix wasnt involved.
+        -- because nix already ensured they were installed.
+        ensure_installed = {
+            "bash",
+            "c",
+            "diff",
+            "html",
+            "lua",
+            "luadoc",
+            "markdown",
+            "vim",
+            "vimdoc",
+            "php",
+            "blade",
+            "css",
+            "javascript",
+        },
+        auto_install = true,
 
-	-- 2. Plugin de Textobjects: Ahora depende de que Treesitter esté cargado
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		lazy = true,
-		config = function()
-			-- Esto asegura que solo se configure cuando Treesitter ya existe
-			require("nvim-treesitter.configs").setup({
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true,
-						keymaps = {
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-						},
-					},
-				},
-			})
-		end,
-	},
+        highlight = {
+            enable = true,
+            -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+            --  If you are experiencing weird indenting issues, add the language to
+            --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+            additional_vim_regex_highlighting = { "ruby" },
+        },
+        indent = { enable = true, disable = { "ruby" } },
+
+        textobjects = {
+            select = {
+                enable = true,
+                keymaps = {
+                    -- You can use the capture groups defined in textobjects.scm
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                },
+            },
+        },
+    },
+    config = function(_, opts)
+        -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+
+        -- Prefer git instead of curl in order to improve connectivity in some environments
+        require("nvim-treesitter.install").prefer_git = true
+        ---@diagnostic disable-next-line: missing-fields
+        require("nvim-treesitter.configs").setup(opts)
+
+        -- There are additional nvim-treesitter modules that you can use to interact
+        -- with nvim-treesitter. You should go explore a few and see what interests you:
+        --
+        --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
+        --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
+        --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+
+        vim.filetype.add({
+            pattern = {
+                [".*%.blade%.php"] = {
+                    function(path, bufnr, ext)
+                        local firstLine = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1] or ""
+                        if vim.startswith(firstLine, "<?php") then
+                            return "php"
+                        end
+
+                        return "blade"
+                    end,
+                    { priority = math.huge, name = "blade" },
+                },
+            },
+        })
+    end,
 }
-
