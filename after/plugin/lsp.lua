@@ -67,10 +67,10 @@ vim.lsp.config("*", {
 
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("phpactor")
-vim.lsp.enable("laravel-ls")
+-- vim.lsp.enable("laravel-ls")
 vim.lsp.enable("vue_ls")
 -- vim.lsp.enable("emmet_ls")
-vim.lsp.enable('emmet_language_server')
+vim.lsp.enable('emmet')
 -- vim.lsp.enable("cssls")
 -- vim.lsp.enable("jsonls")
 -- vim.lsp.enable("ts_ls", require("nixCatsUtils").enableForCategory("javascript"))
