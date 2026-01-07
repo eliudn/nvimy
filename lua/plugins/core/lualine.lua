@@ -111,10 +111,6 @@ return {
 
             return "󱉭  " .. vim.fn.fnamemodify(root, ":t")
         end
-        -- local function get_project_name()
-        --     local root = Snacks.util.root()
-        --     return "󱉭  " .. vim.fn.fnamemodify(root, ":t")
-        -- end
 
         -- Función para ver qué LSP y Formateadores están activos
         local function lsp_status()
