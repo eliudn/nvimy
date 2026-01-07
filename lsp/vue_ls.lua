@@ -1,5 +1,5 @@
 return {
-    cmd ={ "vue-language-server", "--stdio" },
-    filetype={"vue"},
-    root_markers={"package.json"}
+    cmd = { "vue-language-server", "--stdio" },
+    filetypes = { "vue" },
+    root_markers = { "package.json" }
 }
