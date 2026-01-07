@@ -63,7 +63,7 @@ return {
         },
         -- terminal
         {
-            "<leader>''",
+            "<c-'>",
             function()
                 Snacks.terminal()
             end,

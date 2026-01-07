@@ -48,9 +48,9 @@ return {
 					-- 	table.insert(sources, "laravel")
 					-- end
 
-					if vim.tbl_contains({ "sql", "mysql", "plsql" }, vim.bo.filetype) then
-						return { "dadbod", "snippets" }
-					end
+					-- if vim.tbl_contains({ "sql", "mysql", "plsql" }, vim.bo.filetype) then
+					-- 	return { "dadbod", "snippets" }
+					-- end
 
 					return sources
 				end,
@@ -59,10 +59,10 @@ return {
 						name = "laravel",
 						module = "blink.compat.source",
 					},
-					dadbod = {
-						name = "Dadbod",
-						module = "vim_dadbod_completion.blink",
-					},
+					-- dadbod = {
+					-- 	name = "Dadbod",
+					-- 	module = "vim_dadbod_completion.blink",
+					-- },
 				},
 			},
 		},
