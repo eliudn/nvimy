@@ -61,22 +61,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
--- vim.lsp.config("*", {
--- 	capabilities = require("blink.cmp").get_lsp_capabilities(),
--- })
-local capabilities = require("blink.cmp").get_lsp_capabilities()
+vim.lsp.config("*", {
+	capabilities = require("blink.cmp").get_lsp_capabilities(),
+})
+local features = require("config.features")
 
-vim.lsp.config("lua_ls", { capabilities = capabilities })
-vim.lsp.config("phpactor", { capabilities = capabilities })
-vim.lsp.config("vue_ls", { capabilities = capabilities })
-vim.lsp.config('emmet', { capabilities = capabilities })
-
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("phpactor")
+for server, enabled in pairs(features.lsp) do
+    if enabled then
+        vim.lsp.enable(server)
+    end
+end
+-- vim.lsp.enable("lua_ls")
+-- vim.lsp.enable("phpactor")
 -- vim.lsp.enable("laravel-ls")
-vim.lsp.enable("vue_ls")
+-- vim.lsp.enable("vue_ls")
 -- vim.lsp.enable("emmet_ls")
-vim.lsp.enable('emmet')
+-- vim.lsp.enable('emmet')
 -- vim.lsp.enable("cssls")
 -- vim.lsp.enable("jsonls")
 -- vim.lsp.enable("ts_ls", require("nixCatsUtils").enableForCategory("javascript"))
