@@ -10,7 +10,7 @@ return {
   lazy = false,
   keys ={
       {
-          "<leader>-",
+          "-",
           "<Cmd>Oil<CR>" ,
           desc = "Open Oil"
       },

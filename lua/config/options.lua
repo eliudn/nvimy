@@ -28,3 +28,23 @@ vim.o.showmode = false
 vim.o.clipboard = "unnamedplus"
 vim.o.conceallevel = 1
 vim.o.cmdheight = 0
+
+-- Performance
+vim.opt.updatetime = 250  -- Más rápido para autocomandos
+vim.opt.timeoutlen = 300  -- Mapeos más rápidos
+vim.opt.redrawtime = 1500 -- Para syntax highlighting
+vim.opt.ttimeoutlen = 10  -- Salir de modos más rápido
+
+-- Búsqueda mejorada
+vim.opt.inccommand = "split" -- Preview de sustituciones
+
+local cache_dir = vim.fn.stdpath("cache")
+
+vim.opt.undofile = true
+vim.opt.undodir = cache_dir .. "/undo//"
+vim.opt.undolevels = 10000
+vim.opt.undoreload = 10000
+
+-- Backup
+vim.opt.backup = false
+vim.opt.writebackup = false
