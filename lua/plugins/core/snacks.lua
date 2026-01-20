@@ -250,12 +250,19 @@ return {
             end,
             desc = "Search History",
         },
-       {
+        {
             "<leader>sD",
             function()
                 Snacks.picker.diagnostics_buffer()
             end,
             desc = "Buffer Diagnostics",
+        },
+        {
+            "<leader>ld",
+            function()
+                Snacks.picker.diagnostics()
+            end,
+            desc = "LSP Diagnostics"
         },
         {
             "<leader>sh",
