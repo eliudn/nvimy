@@ -8,5 +8,6 @@ return {
         emmet = true,
         -- Fácil habilitar/deshabilitar
         tailwindcss = false,
+        texlab = true
     }
 }

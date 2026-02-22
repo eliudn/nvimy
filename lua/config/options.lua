@@ -48,3 +48,4 @@ vim.opt.undoreload = 10000
 -- Backup
 vim.opt.backup = false
 vim.opt.writebackup = false
+vim.g.vimtex_view_method = "zathura"

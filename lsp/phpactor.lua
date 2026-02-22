@@ -24,6 +24,17 @@ return {
             -- "/vendor/**/_ide_helpers.php",
         },
         ["php_code_sniffer.enabled"] = false,
+        ["laravel.enabled"] = true,
+        ["code_transform.preferred_imports"] = {
+            classes = {
+                ["Illuminate\\Support\\Collection"] = "Collection",
+                ["Illuminate\\Support\\Str"] = "Str",
+                ["Illuminate\\Support\\Arr"] = "Arr",
+                ["Illuminate\\Support\\Carbon"] = "Carbon",
+                ["Illuminate\\Support\\Facades\\Log"] = "Log", -- Agregado común
+                ["Illuminate\\Support\\Facades\\Cache"] = "Cache", -- Agregado común
+            }
+        },
 
         ["language_server_phpstan.enabled"] = true,
         ["language_server_phpstan.level"] = "5",

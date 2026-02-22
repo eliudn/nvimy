@@ -3,7 +3,8 @@ return {
     opts = {
         formatters_by_ft = {
             lua = { "stylua" },
-            php = {"php_cs_fixer"}
+            php = {"php_cs_fixer"},
+            vue = {"prettier"}
         }
     },
     keys = {
