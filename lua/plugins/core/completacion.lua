@@ -10,6 +10,10 @@ return {
 				name = "luasnip",
 				config = function()
 					require("luasnip.loaders.from_vscode").lazy_load()
+					-- Cargar snippets personalizados en Lua
+					require("luasnip.loaders.from_lua").load({
+						paths = vim.fn.stdpath("config") .. "/lua/snippets",
+					})
 				end,
 			},
 			{ "nvim-mini/mini.icons", opts = {} },
@@ -36,6 +40,12 @@ return {
 			appearance = {
 				use_nvim_cmp_as_default = true,
 				nerd_font_variant = "mono",
+			},
+			completion = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 200,
+				},
 			},
 			sources = {
 				default = function()
