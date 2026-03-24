@@ -2,9 +2,19 @@ return {
     'stevearc/conform.nvim',
     opts = {
         formatters_by_ft = {
-            lua = { "stylua" },
-            php = {"php_cs_fixer"},
-            vue = {"prettier"}
+            lua              = { "stylua" },
+            php              = { "php_cs_fixer" },
+            blade            = { "blade_formatter" },
+            vue              = { "prettier" },
+            javascript       = { "prettier" },
+            typescript       = { "prettier" },
+            javascriptreact  = { "prettier" },
+            typescriptreact  = { "prettier" },
+            json             = { "prettier" },
+            jsonc            = { "prettier" },
+            css              = { "prettier" },
+            html             = { "prettier" },
+            markdown         = { "prettier" },
         }
     },
     keys = {
