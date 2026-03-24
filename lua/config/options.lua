@@ -49,3 +49,9 @@ vim.opt.undoreload = 10000
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.g.vimtex_view_method = "zathura"
+
+-- Foldado con Treesitter (desactivado por defecto, activar con zi)
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr   = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false  -- zi para activar/desactivar
+vim.opt.foldlevel  = 99     -- no colapsar nada al abrir

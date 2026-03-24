@@ -1,11 +1,3 @@
+-- LSP está configurado en after/plugin/lsp.lua
+-- Este archivo se mantiene como placeholder para compatibilidad con lazy.nvim
 return {}
-
--- return {
--- 	"neovim/nvim-lspconfig",
--- 	dependencies = {
--- 		"williamboman/mason.nvim",
--- 	},
--- 	config = function()
--- 		require("mason").setup()
--- 	end,
--- }
