@@ -14,12 +14,28 @@ return {
             timeout = 3000,
             styles = "fancy"
         },
-        picker = { enabled = true },
+        picker = {
+            enabled = true,
+            win = {
+                input = {
+                    keys = {
+                        ["<C-w>w"] = { "focus_preview", desc = "Enfocar Contenido", mode = { "i", "n" } },
+                    }
+                },
+                -- Teclas cuando estás navegando la lista con j/k o <c-n>/<c-p>
+                list = {
+                    keys = {
+                        ["<C-w>w"] = { "focus_preview", desc = "Enfocar Contenido", mode = { "i", "n" } },
+                    }
+                }
+            }
+        },
         quickfile = { enabled = true },
         scope = { enabled = true },
         scroll = { enabled = true },
         statuscolumn = { enabled = true },
         words = { enabled = true },
+        image = { enabled = false },
         styles = {
             notification = {
                 -- wo = { wrap = true } -- Wrap notifications
@@ -47,7 +63,63 @@ return {
         }
 
     },
+    init = function()
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "VeryLazy",
+            once = true,
+            callback = function()
+                -- En este punto noice ya cargó y tomó vim.notify.
+                -- Snacks ya está inicializado (priority=1000, lazy=false).
+                -- Reasignamos vim.notify directamente a snacks.
+                -- Los features de noice (cmdline, LSP markdown) NO usan
+                -- vim.notify — operan a nivel de ui_attach, son independientes.
+                --
+                ---@diagnostic disable-next-line: duplicate-set-field
+                vim.notify = function(msg, level, opts)
+                    Snacks.notify(msg, level, opts)
+                end
+            end,
+        })
+    end,
     keys = {
+        {
+            "<leader>cc",
+            function()
+                Snacks.terminal("claude", {
+                    win = {
+                        position = "right",
+                        width = 0.40,
+                        term_normal = {
+                            "<esc>",
+                            [[<C-\><C-n>]],
+                            mode = "t",
+                            expr = true,
+                            desc = "Modo normal",
+                        },
+                    }
+                })
+            end,
+            desc = "Claude code (lateral)"
+        },
+        {
+            "<leader>cd",
+            function()
+                Snacks.terminal("claude --dangerously-skip-permissions", {
+                    win = {
+                        position = "right",
+                        width = 0.40,
+                        term_normal = {
+                            "<esc>",
+                            [[<C-\><C-n>]],
+                            mode = "t",
+                            expr = true,
+                            desc = "Modo normal",
+                        },
+                    }
+                })
+            end,
+            desc = "Claude code (lateral)"
+        },
         -- Utilidades extra
         { "<leader>.",  function() Snacks.scratch() end,            desc = "Toggle Scratch Buffer" },
         { "<leader>S",  function() Snacks.scratch.select() end,     desc = "Select Scratch Buffer" },

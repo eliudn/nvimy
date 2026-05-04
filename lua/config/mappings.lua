@@ -102,3 +102,12 @@ map("n", "<leader>ts", function() require("neotest").run.stop() end,            
 map("n", "<leader>to", function() require("neotest").output.open({ enter = true }) end,         { desc = "Test: Output" })
 map("n", "<leader>tO", function() require("neotest").output_panel.toggle() end,                 { desc = "Test: Panel toggle" })
 map("n", "<leader>tS", function() require("neotest").summary.toggle() end,                      { desc = "Test: Summary toggle" })
+
+vim.keymap.set("n", "<leader>md", _G.DiagnosticToggleLines,
+    { desc = "Toggle diagnósticos detalle" })
+
+vim.keymap.set("n", "gl", vim.diagnostic.open_float,
+    { desc = "Float diagnóstico línea actual" })
+
+vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist,
+    { desc = "Diagnósticos → quickfix list" })

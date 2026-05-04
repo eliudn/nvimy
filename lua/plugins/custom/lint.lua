@@ -6,9 +6,6 @@ return {
 
         lint.linters_by_ft = {
             php        = { "phpstan" },
-            javascript = { "eslint_d" },
-            typescript = { "eslint_d" },
-            vue        = { "eslint_d" },
         }
 
         -- Ejecutar linter al guardar y al leer
