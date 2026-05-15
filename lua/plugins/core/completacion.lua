@@ -2,6 +2,7 @@ return {
     { "saghen/blink.compat", version = "*", lazy = true, opts = {} },
     {
         "saghen/blink.cmp",
+        event = "InsertEnter",
         dependencies = {
             "rafamadriz/friendly-snippets",
             {

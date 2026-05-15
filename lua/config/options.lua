@@ -49,10 +49,13 @@ vim.o.cmdheight = 0
 
 -- Performance
 vim.opt.updatetime = 250  -- Más rápido para autocomandos
--- vim.opt.timeoutlen = 300  -- Mapeos más rápidos
+vim.opt.timeoutlen = 300  -- Mapeos más rápidos
 vim.opt.redrawtime = 1500 -- Para syntax highlighting
 vim.opt.ttimeoutlen = 10  -- Salir de modos más rápido
 
+vim.opt.laststatus = 3
+vim.opt.smoothscroll = true
+-- vim.opt.splitkeepalt = "screen"
 -- Búsqueda mejorada
 vim.opt.inccommand = "split" -- Preview de sustituciones
 
