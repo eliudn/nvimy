@@ -5,13 +5,13 @@ return {
     event = "VeryLazy",
     opts = {
         mappings = {
-            add = "sa",            -- Add surrounding (sa"): hello → "hello"
-            delete = "sd",         -- Delete surrounding (sd"): "hello" → hello
-            find = "sf",           -- Find surrounding
-            find_left = "sF",      -- Find surrounding left
-            highlight = "sh",      -- Highlight surrounding
-            replace = "sr",        -- Replace surrounding (sr"'): "hello" → 'hello'
-            update_n_lines = "sn", -- Update n_lines
+            add            = "gza", -- Add surrounding (gza"): hello → "hello"
+            delete         = "gzd", -- Delete surrounding (gzd"): "hello" → hello
+            find           = "gzf", -- Find surrounding
+            find_left      = "gzF", -- Find surrounding left
+            highlight      = "gzh", -- Highlight surrounding
+            replace        = "gzr", -- Replace surrounding (gzr"'): "hello" → 'hello'
+            update_n_lines = "gzn", -- Update n_lines
         },
     },
 }

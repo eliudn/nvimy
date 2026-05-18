@@ -186,13 +186,6 @@ return {
         },
         -- find
         {
-            "<leader>fb",
-            function()
-                Snacks.picker.buffers()
-            end,
-            desc = "Buffers",
-        },
-        {
             "<leader>fc",
             function()
                 Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
@@ -291,13 +284,6 @@ return {
                 Snacks.picker.grep_buffers()
             end,
             desc = "Grep Open Buffers",
-        },
-        {
-            "<leader>sg",
-            function()
-                Snacks.picker.grep()
-            end,
-            desc = "Grep",
         },
         {
             "<leader>sw",

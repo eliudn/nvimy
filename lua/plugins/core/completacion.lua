@@ -25,10 +25,10 @@ return {
         opts = {
             keymap = {
                 preset = "default",
-                ["<S-Tab>"] = {},
-                ["<Tab>"] = {},
-                ["<C-l>"] = { "snippet_forward", "fallback" },
-                ["<C-j>"] = { "snippet_backward", "fallback" },
+                ["<C-l>"] = {},
+                ["<C-j>"] = {},
+                ["<Tab>"]   = { "snippet_forward",  "fallback" },
+                ["<S-Tab>"] = { "snippet_backward", "fallback" },
             },
             signature = {
                 enabled = true,

@@ -110,6 +110,5 @@ return {
 
         -- Commit message desde git status
         { "<leader>am", "<cmd>CodeCompanion /commit<cr>",    desc = "AI: Commit message" },
-        { "<esc>",      [[<C-\><C-n>]],                      mode = "t" },
     },
 }

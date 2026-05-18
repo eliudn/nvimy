@@ -27,7 +27,7 @@ return {
             { "<leader>dp", function() require("dap").pause() end,                                                     desc = "Debug: Pause" },
             { "<leader>dr", function() require("dap").repl.toggle() end,                                               desc = "Debug: REPL toggle" },
             { "<leader>dl", function() require("dap").run_last() end,                                                  desc = "Debug: Run last" },
-            { "<leader>ds", function() require("dap").session() end,                                                   desc = "Debug: Sesión activa" },
+            { "<leader>dS", function() require("dap").session() end,                                                   desc = "Debug: Sesión activa" },
             { "<leader>dt", function() require("dap").terminate() end,                                                 desc = "Debug: Terminar" },
             { "<leader>du", function() require("dapui").toggle() end,                                                  desc = "Debug: UI toggle" },
             { "<leader>de", function() require("dapui").eval() end,                                                    desc = "Debug: Eval expresión", mode = { "n", "v" } },
