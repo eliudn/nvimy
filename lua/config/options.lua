@@ -23,7 +23,6 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.colorcolumn = "80"
 vim.o.termguicolors = true
-vim.o.ambiwidth = "double"
 vim.o.scrolloff = 4
 vim.o.sidescrolloff = 4
 vim.o.showmode = false
