@@ -150,15 +150,10 @@ return {
                     { lsp_status, color = { fg = "#5ea1ff" } }, -- Muestra tu lua_ls, phpactor, etc.
                 },
                 lualine_y = y_section,
-                -- lualine_y = {
-                --     { 'fileformat', symbols = { unix = 'LF', dos = 'CRLF', mac = 'CR' } },
-                --     'encoding',
-                --     'filesize' -- Muy útil para saber si el archivo es pesado
-                -- },
-                -- lualine_z = {
-                --     { 'location', icon = "" },
-                --     { 'progress', separator = " ", padding = { left = 0, right = 1 } },
-                -- },
+                lualine_z = {
+                    { 'location', icon = "" },
+                    { 'progress', separator = " ", padding = { left = 0, right = 1 } },
+                },
             },
         }
     end,

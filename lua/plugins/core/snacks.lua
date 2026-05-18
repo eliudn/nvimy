@@ -5,7 +5,32 @@ return {
     ---@type snacks.Config
     opts = {
         bigfile = { enabled = true },
-        dashboard = { enabled = true },
+        dashboard = {
+            enabled = true,
+            preset = {
+                header = [[
+  ███╗   ██╗███████╗██████╗ ██╗   ██╗
+  ████╗  ██║██╔════╝██╔══██╗██║   ██║
+  ██╔██╗ ██║█████╗  ██████╔╝╚██╗ ██╔╝
+  ██║╚██╗██║██╔══╝  ██╔══██╗ ╚████╔╝
+  ██║ ╚████║███████╗██║  ██║  ╚██╔╝
+  ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝   ╚═╝
+  ─────────────────────────────────
+  SPECIAL AGENCY · TOKYO-3 TERMINAL
+  「God's in His heaven.
+    All's right with the world.」]],
+                keys = {
+                    { icon = "󰈞 ", key = "f", desc = "Buscar archivo",     action = ":lua Snacks.picker.files()" },
+                    { icon = " ", key = "r", desc = "Recientes",           action = ":lua Snacks.picker.recent()" },
+                    { icon = "󰺮 ", key = "g", desc = "Buscar en proyecto", action = ":lua Snacks.picker.grep()" },
+                    { icon = " ", key = "e", desc = "Explorador",          action = ":Oil" },
+                    { icon = " ", key = "l", desc = "LazyGit",             action = ":lua Snacks.lazygit()" },
+                    { icon = " ", key = "s", desc = "Restaurar sesión",    action = ":lua require('persistence').load()" },
+                    { icon = "󰒲 ", key = "L", desc = "Lazy",               action = ":Lazy" },
+                    { icon = " ", key = "q", desc = "Salir",              action = ":qa" },
+                },
+            },
+        },
         explorer = { enabled = true },
         indent = { enabled = true },
         input = { enabled = true },

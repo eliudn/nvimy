@@ -22,6 +22,7 @@ return {
             { "<leader>s",     group = "Search" },
             { "<leader>t",     group = "Test" },
             { "<leader>x",     group = "Diagnosticos" },
+            { "<leader>u",     group = "UI / Temas" },
             { "<leader>y",     group = "Yank" },
             { "<leader><tab>", group = "Tabs" },
             { "gz",            group = "Surround" },
