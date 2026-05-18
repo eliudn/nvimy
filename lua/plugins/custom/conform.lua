@@ -2,6 +2,9 @@ return {
     'stevearc/conform.nvim',
     opts = {
         formatters_by_ft = {
+            -- Ruff reemplaza black + isort: un solo binario, criterios consistentes.
+            -- ruff_organize_imports primero: ordena imports antes de formatear el resto.
+            python           = { "ruff_organize_imports", "ruff_format" },
             lua              = { "stylua" },
             php              = { "php_cs_fixer" },
             blade            = { "blade_formatter" },

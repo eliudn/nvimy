@@ -13,6 +13,11 @@ return {
 			"tailwindcss-language-server", -- LSP TailwindCSS
 			"blade-formatter",             -- Formateador Blade templates
 			"eslint-lsp",                  -- ESLint como LSP (vscode-eslint-language-server)
+			-- Python toolchain
+			"basedpyright",                -- LSP: type checking + autocompletado
+			"ruff",                        -- LSP + formatter + linter (binario unificado)
+			-- mypy: omitido — requiere stubs por proyecto; basedpyright es suficiente
+			"debugpy",                     -- Adapter DAP para debugging
 		},
 	},
 	config = function(_, opts)

@@ -7,6 +7,7 @@ return {
             "nvim-treesitter/nvim-treesitter",
             "olimorris/neotest-phpunit",
             "marilari88/neotest-vitest",
+            "nvim-neotest/neotest-python",
         },
         keys = {
             { "<leader>tr", function() require("neotest").run.run() end,                              desc = "Test: Run nearest" },
@@ -19,6 +20,16 @@ return {
         config = function()
             require("neotest").setup({
                 adapters = {
+                    require("neotest-python")({
+                        -- pytest es el estándar moderno (FastAPI, Pydantic, Django lo usan)
+                        runner = "pytest",
+                        -- Permite debug de código de librerías, no solo del proyecto
+                        dap = { justMyCode = false },
+                        -- Necesario para que el output sea visible en tiempo real
+                        args = { "--capture=no" },
+                        -- Detecta automáticamente tests parametrizados
+                        pytest_discover_instances = true,
+                    }),
                     require("neotest-phpunit")({
                         phpunit_cmd = function()
                             -- Soporta vendor/bin/phpunit y ./vendor/bin/pest

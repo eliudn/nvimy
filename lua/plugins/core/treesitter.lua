@@ -24,6 +24,7 @@ return { -- Highlight, edit, and navigate code
         ---@diagnostic disable-next-line: missing-fields
         require("nvim-treesitter.configs").setup({
             ensure_installed = {
+                "python",
                 "bash",
                 "c",
                 "diff",

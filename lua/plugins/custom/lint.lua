@@ -5,7 +5,10 @@ return {
         local lint = require("lint")
 
         lint.linters_by_ft = {
-            php        = { "phpstan" },
+            php    = { "phpstan" },
+            -- Python: sin linter externo — basedpyright cubre type checking y
+            -- ruff LSP cubre style/linting en tiempo real. mypy requiere stubs
+            -- por proyecto y no escala bien en un laboratorio multi-framework.
         }
 
         -- Ejecutar linter al guardar y al leer

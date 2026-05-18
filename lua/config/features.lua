@@ -10,5 +10,7 @@ return {
         tailwindcss = true, -- habilitado: detecta proyectos por tailwind.config.*
         eslint      = true, -- habilitado: fix automático al guardar
         texlab      = true,
+        python      = true, -- basedpyright: type checking + autocompletado
+        ruff        = true, -- ruff LSP: linting de estilo (sin formateo — maneja conform)
     }
 }
