@@ -58,7 +58,7 @@ vim.g.vimtex_view_method = "zathura"
 -- nvim-ufo maneja los folds (LSP → indent como fallback, sin treesitter)
 vim.opt.foldmethod     = "expr"
 vim.opt.foldexpr       = "0"   -- ufo sobreescribe esto en BufReadPost
-vim.opt.foldcolumn     = "1"
+vim.opt.foldcolumn     = "auto:1"
 vim.opt.foldenable     = true
 vim.opt.foldlevel      = 99
 vim.opt.foldlevelstart = 99
