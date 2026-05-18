@@ -18,6 +18,9 @@ return {
 			"ruff",                        -- LSP + formatter + linter (binario unificado)
 			-- mypy: omitido — requiere stubs por proyecto; basedpyright es suficiente
 			"debugpy",                     -- Adapter DAP para debugging
+			-- Rust toolchain
+			"rust-analyzer",               -- LSP backend (rustaceanvim lo gestiona, mason instala el binario)
+			"codelldb",                    -- Debugger Rust/C++ — en mason.lua para instalar al inicio sin esperar DAP
 		},
 	},
 	config = function(_, opts)

@@ -11,7 +11,8 @@ return {
                 opts = {
                     automatic_installation = true,
                     handlers = {},
-                    ensure_installed = { "php", "js", "python", "delve" },
+                    -- codelldb: debugger Rust/C++ con pretty-printing de tipos nativos
+                    ensure_installed = { "php", "js", "python", "delve", "codelldb" },
                 },
             },
         },

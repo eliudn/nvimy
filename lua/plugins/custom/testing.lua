@@ -8,6 +8,7 @@ return {
             "olimorris/neotest-phpunit",
             "marilari88/neotest-vitest",
             "nvim-neotest/neotest-python",
+            "rouge8/neotest-rust",
         },
         keys = {
             { "<leader>tr", function() require("neotest").run.run() end,                              desc = "Test: Run nearest" },
@@ -20,6 +21,11 @@ return {
         config = function()
             require("neotest").setup({
                 adapters = {
+                    require("neotest-rust")({
+                        -- cargo test por defecto; para más velocidad: instalar
+                        -- cargo-nextest y cambiar a args = { "--no-fail-fast" }
+                        args = { "--no-fail-fast" },
+                    }),
                     require("neotest-python")({
                         -- pytest es el estándar moderno (FastAPI, Pydantic, Django lo usan)
                         runner = "pytest",

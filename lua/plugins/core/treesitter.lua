@@ -25,6 +25,8 @@ return { -- Highlight, edit, and navigate code
         require("nvim-treesitter.configs").setup({
             ensure_installed = {
                 "python",
+                "rust",
+                "toml",
                 "bash",
                 "c",
                 "diff",
