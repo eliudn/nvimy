@@ -22,7 +22,7 @@ return {
         transparent     = false,
         italic_comments = true,
         terminal_colors = true,
-        cache           = true,
+        cache           = false,
 
         -- Fondo más profundo que el default (#16181a) para mayor contraste neon
         colors = {
