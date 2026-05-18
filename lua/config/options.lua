@@ -1,20 +1,3 @@
-_G.MyFoldText = function()
-    local startline = vim.v.foldstart
-    local line = vim.api.nvim_buf_get_lines(0, startline - 1, startline, false)[1]
-
-    -- Limpiar la línea: quitar whitespace inicial
-    line = line:gsub("^%s+", "")
-
-    local linecount = vim.v.foldend - vim.v.foldstart + 1
-    local suffix = string.format("  ···  %d lines ", linecount)
-
-    -- Calcular padding para alinear el contador a la derecha
-    local width = vim.api.nvim_win_get_width(0)
-    local padding = width - #line - #suffix - vim.o.foldcolumn - vim.o.numberwidth
-    if padding < 1 then padding = 1 end
-
-    return line .. string.rep(" ", padding) .. suffix
-end
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = "'"
@@ -72,10 +55,10 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 vim.g.vimtex_view_method = "zathura"
 
--- Foldado con indent (foldexpr de treesitter causaba crashes con blade/injections)
-vim.opt.foldmethod = "indent"
--- vim.opt.foldexpr   = "v:lua.vim.treesitter.foldexpr()"
--- vim.opt.foldtext = "v:lua.MyFoldText"
-vim.opt.foldcolumn = "1"
-vim.opt.foldenable = false  -- zi para activar/desactivar
-vim.opt.foldlevel  = 99     -- no colapsar nada al abrir
+-- nvim-ufo maneja los folds (LSP → indent como fallback, sin treesitter)
+vim.opt.foldmethod     = "expr"
+vim.opt.foldexpr       = "0"   -- ufo sobreescribe esto en BufReadPost
+vim.opt.foldcolumn     = "1"
+vim.opt.foldenable     = true
+vim.opt.foldlevel      = 99
+vim.opt.foldlevelstart = 99
