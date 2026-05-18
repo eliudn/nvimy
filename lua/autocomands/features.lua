@@ -7,6 +7,7 @@ M.autocomands = {
     easy_close_buffers  = false,
     features            = true,
     highlight_yank      = true,
+    kitty_padding       = true,
     latex               = true,
     notify_formatter    = true,
     remove_trailing_whitespace = true,
