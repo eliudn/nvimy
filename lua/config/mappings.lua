@@ -44,19 +44,37 @@ map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 map("v", "p", '"_dP', { desc = "Paste without yanking" })
 
 -- Quick save and quit
-map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
+map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save file" })
+map("i", "<C-s>", "<cmd>w<cr>", { desc = "Save file" })
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 map("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit all" })
 
--- Split windows
-map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
-map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
+-- Windows
+map("n", "<leader>ws", "<C-W>s",  { desc = "Split horizontal" })
+map("n", "<leader>wv", "<C-W>v",  { desc = "Split vertical" })
+map("n", "<leader>wd", "<C-W>c",  { desc = "Close window" })
+map("n", "<leader>we", "<C-W>=",  { desc = "Equalizar ventanas" })
+map("n", "<leader>ww", "<C-W>w",  { desc = "Siguiente ventana" })
+map("n", "<leader>wH", "<C-W>H",  { desc = "Mover ventana izquierda" })
+map("n", "<leader>wJ", "<C-W>J",  { desc = "Mover ventana abajo" })
+map("n", "<leader>wK", "<C-W>K",  { desc = "Mover ventana arriba" })
+map("n", "<leader>wL", "<C-W>L",  { desc = "Mover ventana derecha" })
+-- atajos rápidos mantenidos
+map("n", "<leader>-",  "<C-W>s",  { desc = "Split horizontal" })
+map("n", "<leader>|",  "<C-W>v",  { desc = "Split vertical" })
 
 -- Buffers
--- map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
--- map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
--- map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete buffer" })
--- map("n", "<leader>bo", "<cmd>%bd|e#|bd#<cr>", { desc = "Delete other buffers" })
+map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+map("n", "]b", "<cmd>bnext<cr>",     { desc = "Next buffer" })
+map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Alternate buffer" })
+map("n", "<leader>bd", function() Snacks.bufdelete() end,       { desc = "Delete buffer" })
+map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete other buffers" })
+
+-- Tabs
+map("n", "<leader><tab>n", "<cmd>tabnew<cr>",      { desc = "New tab" })
+map("n", "<leader><tab>c", "<cmd>tabclose<cr>",    { desc = "Close tab" })
+map("n", "<leader><tab>]", "<cmd>tabnext<cr>",     { desc = "Next tab" })
+map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Prev tab" })
 
 -- Quickfix
 -- map("n", "[q", "<cmd>cprev<cr>", { desc = "Previous quickfix" })
@@ -96,12 +114,12 @@ map("n", "<leader>yn", function()
 end, { desc = "Copy file name" })
 
 -- Testing (neotest)
-map("n", "<leader>tr", function() require("neotest").run.run() end,                             { desc = "Test: Run nearest" })
-map("n", "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end,           { desc = "Test: Run file" })
-map("n", "<leader>ts", function() require("neotest").run.stop() end,                            { desc = "Test: Stop" })
-map("n", "<leader>to", function() require("neotest").output.open({ enter = true }) end,         { desc = "Test: Output" })
-map("n", "<leader>tO", function() require("neotest").output_panel.toggle() end,                 { desc = "Test: Panel toggle" })
-map("n", "<leader>tS", function() require("neotest").summary.toggle() end,                      { desc = "Test: Summary toggle" })
+-- map("n", "<leader>tr", function() require("neotest").run.run() end,                             { desc = "Test: Run nearest" })
+-- map("n", "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end,           { desc = "Test: Run file" })
+-- map("n", "<leader>ts", function() require("neotest").run.stop() end,                            { desc = "Test: Stop" })
+-- map("n", "<leader>to", function() require("neotest").output.open({ enter = true }) end,         { desc = "Test: Output" })
+-- map("n", "<leader>tO", function() require("neotest").output_panel.toggle() end,                 { desc = "Test: Panel toggle" })
+-- map("n", "<leader>tS", function() require("neotest").summary.toggle() end,                      { desc = "Test: Summary toggle" })
 
 vim.keymap.set("n", "<leader>md", _G.DiagnosticToggleLines,
     { desc = "Toggle diagnósticos detalle" })
