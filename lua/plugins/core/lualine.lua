@@ -141,13 +141,13 @@ return {
                     { 'diff', symbols = { added = ' ', modified = '󰝤 ', removed = ' ' } }
                 },
                 lualine_c = {
-                    { get_project_name, color = { fg = "#ff9e64", gui = "bold" } }, -- Nombre del proyecto
+                    { get_project_name, color = { fg = "#ff9f5e", gui = "bold" } }, -- Nombre del proyecto
                     { 'filetype', icon_only = true, separator = "", padding = { left = 1, right = 0 } },
                     { 'filename', path = 1, symbols = { modified = "  ", readonly = "  ", unnamed = " [Sin nombre] " } },
                 },
                 lualine_x = {
                     { 'diagnostics', symbols = { error = ' ', warn = ' ', info = ' ', hint = '󰌵 ' } },
-                    { lsp_status, color = { fg = "#7aa2f7" } }, -- Muestra tu lua_ls, phpactor, etc.
+                    { lsp_status, color = { fg = "#5ea1ff" } }, -- Muestra tu lua_ls, phpactor, etc.
                 },
                 lualine_y = y_section,
                 -- lualine_y = {

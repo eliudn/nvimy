@@ -1,0 +1,30 @@
+return {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+        preset = "helix",
+        delay = 400,
+        icons = {
+            mappings = true,
+        },
+        spec = {
+            { "<leader>a",     group = "AI" },
+            { "<leader>w",     group = "Windows" },
+            { "<leader>b",     group = "Buffers" },
+            { "<leader>c",     group = "Codigo" },
+            { "<leader>d",     group = "Debug" },
+            { "<leader>f",     group = "Buscar" },
+            { "<leader>g",     group = "Git" },
+            { "<leader>l",     group = "LSP" },
+            { "<leader>m",     group = "Misc" },
+            { "<leader>p",     group = "Python / Session" },
+            { "<leader>r",     group = "Rust" },
+            { "<leader>s",     group = "Search" },
+            { "<leader>t",     group = "Test" },
+            { "<leader>x",     group = "Diagnosticos" },
+            { "<leader>y",     group = "Yank" },
+            { "<leader><tab>", group = "Tabs" },
+            { "gz",            group = "Surround" },
+        },
+    },
+}
