@@ -1,81 +1,143 @@
 ---@diagnostic disable: param-type-mismatch
-local y_section = {}
 
-y_section = {
+local function find_project_root()
+    local root = vim.fs.find({ ".git", "composer.json", "Cargo.toml", "pyproject.toml",
+        "requirements.txt", "package.json", "go.mod" }, {
+        path = vim.fn.expand("%:p:h"),
+        upward = true,
+    })[1]
+    return root and vim.fn.fnamemodify(root, ":h") or vim.fn.getcwd()
+end
+
+local function is_laravel()
+    local root = find_project_root()
+    return vim.fn.filereadable(root .. "/artisan") == 1
+end
+
+local function is_python()
+    local root = find_project_root()
+    return vim.fn.filereadable(root .. "/pyproject.toml") == 1
+        or vim.fn.filereadable(root .. "/requirements.txt") == 1
+        or vim.fn.filereadable(root .. "/setup.py") == 1
+end
+
+local function is_rust()
+    local root = find_project_root()
+    return vim.fn.filereadable(root .. "/Cargo.toml") == 1
+end
+
+-- Componentes Laravel
+local laravel_components = {
     {
         function()
-            local ok, laravel_version = pcall(function()
-                return Laravel.app("status"):get("laravel")
-            end)
-            if ok then
-                return laravel_version
-            end
+            local ok, v = pcall(function() return Laravel.app("status"):get("laravel") end)
+            return ok and v or nil
         end,
-        icon = { " ", color = { fg = "#F55247" } },
+        icon = { " ", color = { fg = "#F55247" } },
         cond = function()
-            local ok, has_laravel_versions = pcall(function()
-                return Laravel.app("status"):has("laravel")
-            end)
-            return ok and has_laravel_versions
+            if not is_laravel() then return false end
+            local ok, has = pcall(function() return Laravel.app("status"):has("laravel") end)
+            return ok and has
         end,
     },
     {
         function()
-            local ok, php_version = pcall(function()
-                return Laravel.app("status"):get("php")
-            end)
-            if ok then
-                return php_version
-            end
-            return nil
+            local ok, v = pcall(function() return Laravel.app("status"):get("php") end)
+            return ok and v or nil
         end,
-        icon = { " ", color = { fg = "#AEB2D5" } },
+        icon = { " ", color = { fg = "#AEB2D5" } },
         cond = function()
-            local ok, has_php_version = pcall(function()
-                return Laravel.app("status"):has("php")
-            end)
-            return ok and has_php_version
+            if not is_laravel() then return false end
+            local ok, has = pcall(function() return Laravel.app("status"):has("php") end)
+            return ok and has
         end,
     },
     {
         function()
-            local ok, hostname = pcall(function()
-                return Laravel.extensions.composer_dev.hostname()
-            end)
-            if ok then
-                return hostname
-            end
-            return nil
+            local ok, h = pcall(function() return Laravel.extensions.composer_dev.hostname() end)
+            return ok and h or nil
         end,
-        icon = { " ", color = { fg = "#8FBC8F" } },
+        icon = { " ", color = { fg = "#8FBC8F" } },
         cond = function()
-            local ok, is_running = pcall(function()
-                return Laravel.extensions.composer_dev.isRunning()
-            end)
-            return ok and is_running
+            if not is_laravel() then return false end
+            local ok, running = pcall(function() return Laravel.extensions.composer_dev.isRunning() end)
+            return ok and running
         end,
     },
     {
         function()
-            local ok, unseen_records = pcall(function()
-                return #(Laravel.extensions.dump_server.unseenRecords())
-            end)
-
-            if ok then
-                return unseen_records
-            end
-            return 0
+            local ok, n = pcall(function() return #(Laravel.extensions.dump_server.unseenRecords()) end)
+            return ok and n or 0
         end,
-        icon = { "󰱧 ", color = { fg = "#FFCC66" } },
+        icon = { "ï§ ", color = { fg = "#FFCC66" } },
         cond = function()
-            local ok, is_running = pcall(function()
-                return Laravel.extensions.dump_server.isRunning()
-            end)
-
-            return ok and is_running
+            if not is_laravel() then return false end
+            local ok, running = pcall(function() return Laravel.extensions.dump_server.isRunning() end)
+            return ok and running
         end,
     },
 }
+
+-- Componente Python: venv activo
+local python_component = {
+    function()
+        local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_DEFAULT_ENV")
+        if venv then
+            return vim.fn.fnamemodify(venv, ":t")
+        end
+        local root = find_project_root()
+        local f = io.open(root .. "/.python-version", "r")
+        if f then
+            local ver = f:read("*l"); f:close()
+            return ver
+        end
+        return vim.fn.exepath("python3") ~= "" and "python3" or "python"
+    end,
+    icon = { " ", color = { fg = "#4B8BBE" } },
+    color = { fg = "#FFE873" },
+    cond = is_python,
+}
+
+-- Componente Rust: edicion del crate
+local rust_component = {
+    function()
+        local root = find_project_root()
+        local f = io.open(root .. "/Cargo.toml", "r")
+        if f then
+            for line in f:lines() do
+                local edition = line:match('^edition%s*=%s*"(%d+)"')
+                if edition then f:close(); return "edition " .. edition end
+            end
+            f:close()
+        end
+        return "cargo"
+    end,
+    icon = { " ", color = { fg = "#CE412B" } },
+    color = { fg = "#F74C00" },
+    cond = is_rust,
+}
+
+-- Fallback: filetype + encoding si no es UTF-8
+local fallback_component = {
+    function()
+        local enc = vim.opt.fileencoding:get()
+        if enc ~= "" and enc ~= "utf-8" then
+            return enc:upper()
+        end
+        local ft = vim.bo.filetype
+        return ft ~= "" and ft or "plain"
+    end,
+    icon = { "ï ", color = { fg = "#888888" } },
+    color = { fg = "#aaaaaa" },
+    cond = function()
+        return not is_laravel() and not is_python() and not is_rust()
+    end,
+}
+
+local y_section = vim.list_extend(
+    vim.deepcopy(laravel_components),
+    { python_component, rust_component, fallback_component }
+)
 return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
