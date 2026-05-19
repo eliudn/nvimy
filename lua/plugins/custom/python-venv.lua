@@ -13,7 +13,7 @@ return {
     ft = { "python" },
     opts = {
         -- Busca venvs en el directorio del proyecto y en los padres
-        search = true,
+        -- search = true,
         parents = 2,
         -- Nombres de carpeta de venv más comunes
         name = { "venv", ".venv", "env", ".env" },

@@ -15,6 +15,7 @@ local function is_laravel()
 end
 
 local function is_python()
+    if vim.bo.filetype == "python" then return true end
     local root = find_project_root()
     return vim.fn.filereadable(root .. "/pyproject.toml") == 1
         or vim.fn.filereadable(root .. "/requirements.txt") == 1
@@ -92,10 +93,13 @@ local laravel_components = {
 -- Componente Python: venv activo
 local python_component = {
     function()
-        local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_DEFAULT_ENV")
-        if venv then
-            return vim.fn.fnamemodify(venv, ":t")
+        local ok, vs = pcall(require, "venv-selector")
+        if ok then
+            local venv = vs.venv()
+            if venv and venv ~= "" then return vim.fn.fnamemodify(venv, ":t") end
         end
+        local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_DEFAULT_ENV")
+        if venv then return vim.fn.fnamemodify(venv, ":t") end
         local root = find_project_root()
         local f = io.open(root .. "/.python-version", "r")
         if f then

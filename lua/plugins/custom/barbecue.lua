@@ -30,7 +30,7 @@ return {
         event = "LspAttach",
         opts = {
             create_autocmd = false, -- deshabilitamos los autocmds internos
-            attach_navic = false,   -- navic usa auto_attach propio
+            attach_navic = true,   -- navic usa auto_attach propio
             show_dirname = false,
             show_basename = true,
             show_navic = true,
