@@ -1,14 +1,5 @@
-return {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    ---@type snacks.Config
-    opts = {
-        bigfile = { enabled = true },
-        dashboard = {
-            enabled = true,
-            preset = {
-                header = [[
+local function dashboard_header()
+    local art = vim.split([[
                                 __ _._.,._.__
                           .o8888888888888888P'
                         .d88888888888888888K
@@ -36,10 +27,56 @@ return {
                    .d888b.  Y88b.      Y        `Y88888
                                                   `Y88K
                                                     `Y8
-                                                      '
-  ─────────────────────────────────────────────────────
-  SPECIAL AGENCY  ·  NERV HQ  ·  TOKYO-3 TERMINAL
-  「God's in His heaven. All's right with the world.」]],
+                                                      ']], "\n", { plain = true })
+    if art[1] == "" then table.remove(art, 1) end
+    if art[#art] == "" then table.remove(art) end
+
+    local side = {
+        "",
+        "  ╔╗╔ ╔═╗ ╦═╗ ╦  ╦",
+        "  ║║║ ║╣  ╠╦╝ ╚╗╔╝",
+        "  ╝╚╝ ╚═╝ ╩╚═  ╚╝ ",
+        "",
+        "  SPECIAL  AGENCY",
+        "  TOKYO-3 TERMINAL",
+        "",
+        "  God's in His heaven.",
+        "  All's right with",
+        "  the world.",
+        "",
+    }
+
+    -- arte es ASCII puro: #linea == ancho visual
+    local art_w = 0
+    for _, l in ipairs(art) do art_w = math.max(art_w, #l) end
+
+    local gap      = 6
+    local total    = math.max(#art, #side)
+    local side_off = math.floor((total - #side) / 2)
+
+    local lines = {}
+    for i = 1, total do
+        local al = art[i] or ""
+        local sl = ""
+        local si = i - side_off
+        if si >= 1 and si <= #side then sl = side[si] end
+        lines[i] = al .. string.rep(" ", art_w - #al + gap) .. sl
+    end
+
+    return "\n" .. table.concat(lines, "\n") .. "\n"
+end
+
+return {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+        bigfile = { enabled = true },
+        dashboard = {
+            enabled = true,
+            preset = {
+                header = dashboard_header(),
                 keys = {
                     { icon = "󰈞 ", key = "f", desc = "Buscar archivo",     action = ":lua Snacks.picker.files()" },
                     { icon = " ", key = "r", desc = "Recientes",           action = ":lua Snacks.picker.recent()" },
