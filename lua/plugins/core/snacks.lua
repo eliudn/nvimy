@@ -1,4 +1,3 @@
-
 return {
     "folke/snacks.nvim",
     priority = 1000,
@@ -22,41 +21,47 @@ return {
                   `88888888888888888888888888888MM88P"'
  "Y888K    "Y8P""Y888888888888888888888888oo._""""
    88888b    8    8888`Y88888888888888888888888oo.
-   8"Y8888b  8    8888  ,8888888888888888888888888o,
-   8  "Y8888b8    8888""Y8`Y8888888888888888888888b.
-   8    "Y8888    8888   Y  `Y8888888888888888888888
-   8      "Y88    8888     .d `Y88888888888888888888b
- .d8b.      "8  .d8888b..d88P   `Y88888888888888888888
-                                  `Y88888888888888888b.
-                   "Y888P""Y8b. "Y888888888888888888888
-                     888    888   Y888`Y888888888888888
-                     888   d88P    Y88b `Y8888888888888
-                     888"Y88K"      Y88b dPY8888888888P
-                     888  Y88b       Y88dP  `Y88888888b
-                     888   Y88b       Y8P     `Y8888888
-                   .d888b.  Y88b.      Y        `Y88888
-                                                  `Y88K
-                                                    `Y8
-                                                      ']],
+     8"Y8888b  8    8888  ,8888888888888888888888888o,
+     8  "Y8888b8    8888""Y8`Y8888888888888888888888b.
+     8    "Y8888    8888   Y  `Y8888888888888888888888
+      8      "Y88    8888     .d `Y88888888888888888888b
+     .d8b.      "8  .d8888b..d88P   `Y88888888888888888888
+                                       `Y88888888888888888b.
+                        "Y888P""Y8b. "Y888888888888888888888
+                          888    888   Y888`Y888888888888888
+                          888   d88P    Y88b `Y8888888888888
+                          888"Y88K"      Y88b dPY8888888888P
+                          888  Y88b       Y88dP  `Y88888888b
+                          888   Y88b       Y8P     `Y8888888
+                        .d888b.  Y88b.      Y        `Y88888
+                                                       `Y88K
+                                                         `Y8
+                                                           '
+    GOD'S IN HIS HEAVEN. ALL'S RIGHT WITH THE WORLD.]],
                 keys = {
-                    { icon = "󰈞 ", key = "f", desc = "Buscar archivo",     action = ":lua Snacks.picker.files()" },
-                    { icon = " ", key = "r", desc = "Recientes",           action = ":lua Snacks.picker.recent()" },
+                    { incon = " " },
+                    { incon = " " },
+                    { incon = " " },
+                    { incon = " " },
+                    { icon = "󰈞 ", key = "f", desc = "Buscar archivo", action = ":lua Snacks.picker.files()" },
+                    { icon = "󱋡 ", key = "r", desc = "Recientes", action = ":lua Snacks.picker.recent()" },
                     { icon = "󰺮 ", key = "g", desc = "Buscar en proyecto", action = ":lua Snacks.picker.grep()" },
-                    { icon = " ", key = "e", desc = "Explorador",          action = ":Oil" },
-                    { icon = " ", key = "l", desc = "LazyGit",             action = ":lua Snacks.lazygit()" },
-                    { icon = " ", key = "s", desc = "Restaurar sesión",    action = ":lua require('persistence').load()" },
-                    { icon = "󰒲 ", key = "L", desc = "Lazy",               action = ":Lazy" },
-                    { icon = " ", key = "q", desc = "Salir",              action = ":qa" },
+                    { icon = "󱎰 ", key = "e", desc = "Explorador", action = ":Oil" },
+                    { icon = " ", key = "l", desc = "LazyGit", action = ":lua Snacks.lazygit()" },
+                    { icon = " ", key = "s", desc = "Restaurar sesión", action = ":lua require('persistence').load()" },
+                    { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy" },
+                    { icon = "󰿅 ", key = "q", desc = "Salir", action = ":qa" },
                 },
             },
             sections = {
-                { section = "header",  pane = 1 },
-                { section = "startup", pane = 1 },
+                { section = "header", pane = 1 },
                 {
-                    pane    = 2,
-                    indent  = 2,
-                    spacing = 1,
-                    { section = "keys", gap = 1, padding = 1 },
+                    pane = 2,
+                    -- indent  = 4,
+
+                    -- spacing = 1,
+                    { section = "keys",    gap = 1, padding = 1 },
+                    { section = "startup", pane = 2 },
                 },
             },
         },
