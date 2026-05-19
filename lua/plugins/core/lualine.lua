@@ -26,6 +26,17 @@ local function is_rust()
     return vim.fn.filereadable(root .. "/Cargo.toml") == 1
 end
 
+local function is_js()
+    local root = find_project_root()
+    return vim.fn.filereadable(root .. "/package.json") == 1
+        and vim.fn.filereadable(root .. "/artisan") == 0
+end
+
+local function is_lua_project()
+    if is_laravel() or is_python() or is_rust() or is_js() then return false end
+    return vim.bo.filetype == "lua"
+end
+
 -- Componentes Laravel
 local laravel_components = {
     {
@@ -117,6 +128,41 @@ local rust_component = {
     cond = is_rust,
 }
 
+-- Componente JS/TS: package manager + Node version
+local js_component = {
+    function()
+        local root = find_project_root()
+        local pm = "npm"
+        if vim.fn.filereadable(root .. "/bun.lockb") == 1 then
+            pm = "bun"
+        elseif vim.fn.filereadable(root .. "/pnpm-lock.yaml") == 1 then
+            pm = "pnpm"
+        elseif vim.fn.filereadable(root .. "/yarn.lock") == 1 then
+            pm = "yarn"
+        end
+        local node = vim.fn.system("node --version 2>/dev/null"):gsub("%s+", "")
+        return node ~= "" and (pm .. " Â· " .. node) or pm
+    end,
+    icon = { "󰎝 ", color = { fg = "#F7DF1E" } },
+    color = { fg = "#83CD29" },
+    cond = is_js,
+}
+
+-- Componente Lua: version de Lua o contexto Neovim
+local lua_component = {
+    function()
+        if vim.fn.expand("%:p"):find(vim.fn.stdpath("config"), 1, true) then
+            return "nvim " .. tostring(vim.version())
+        end
+        local ver = vim.fn.system("lua -v 2>&1"):match("Lua%s+([%d%.]+)")
+            or vim.fn.system("luajit -v 2>&1"):match("LuaJIT%s+([%d%.%-]+)")
+        return ver and ("lua " .. ver) or "lua"
+    end,
+    icon = { " ", color = { fg = "#00AAFF" } },
+    color = { fg = "#7FDBFF" },
+    cond = is_lua_project,
+}
+
 -- Fallback: filetype + encoding si no es UTF-8
 local fallback_component = {
     function()
@@ -127,16 +173,17 @@ local fallback_component = {
         local ft = vim.bo.filetype
         return ft ~= "" and ft or "plain"
     end,
-    icon = { "ï ", color = { fg = "#888888" } },
+    icon = { "󰈙 ", color = { fg = "#888888" } },
     color = { fg = "#aaaaaa" },
     cond = function()
         return not is_laravel() and not is_python() and not is_rust()
+            and not is_js() and not is_lua_project()
     end,
 }
 
 local y_section = vim.list_extend(
     vim.deepcopy(laravel_components),
-    { python_component, rust_component, fallback_component }
+    { python_component, rust_component, js_component, lua_component, fallback_component }
 )
 return {
     "nvim-lualine/lualine.nvim",
