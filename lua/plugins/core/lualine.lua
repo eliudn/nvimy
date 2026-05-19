@@ -242,6 +242,8 @@ return {
                 section_separators = { left = '', right = '' },
                 globalstatus = true, -- Importante para que combine con cmdheight = 0
                 disabled_filetypes = { statusline = { "dashboard", "alpha", "snacks_dashboard" } },
+                winbar          = {},
+                inactive_winbar = {},
             },
             sections = {
                 lualine_a = { { 'mode', icon = "" } },
