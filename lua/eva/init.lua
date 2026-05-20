@@ -479,7 +479,7 @@ function M.apply(name)
     hl("TreesitterContextLineNumber", { fg = p.fg_dim, bg = p.bg1 })
 
     -- ── SNACKS DASHBOARD ──────────────────────────────────────
-    hl("SnacksDashboardHeader", { fg = p.kw, bold = true })
+    hl("SnacksDashboardHeader", { fg = "#ff2200", bold = true })
     hl("SnacksDashboardKey", { fg = p.string, bold = true })
     hl("SnacksDashboardDesc", { fg = p.fg })
     hl("SnacksDashboardIcon", { fg = p.fn })
