@@ -23,8 +23,17 @@ return {
                 },
             },
             virtualtext = {
-                auto_trigger_ft = {},
-
+                auto_trigger_ft = {
+                    "lua", "python", "javascript", "typescript",
+                    "vue", "php", "css", "html",
+                },
+                keymap = {
+                    accept        = "<A-a>",
+                    accept_line   = "<A-l>",
+                    prev          = "<A-[>",
+                    next          = "<A-]>",
+                    dismiss       = "<A-e>",
+                },
             },
 
             -- Throttle para no disparar en cada keystroke
@@ -37,7 +46,4 @@ return {
         },
     },
     { 'nvim-lua/plenary.nvim' },
-    -- optional, if you are using virtual-text frontend, nvim-cmp is not
-    -- required.
-    { 'hrsh7th/nvim-cmp' },
 }

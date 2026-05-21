@@ -1,5 +1,6 @@
 return {
     { "saghen/blink.compat", version = "*", lazy = true, opts = {} },
+    { "hrsh7th/nvim-cmp",    lazy = true },
     {
         "saghen/blink.cmp",
         event = "InsertEnter",
@@ -65,7 +66,17 @@ return {
 
                     return sources
                 end,
+                per_filetype = {
+                    markdown = { "obsidian", "obsidian_new", "obsidian_tags", "lsp", "path", "snippets", "buffer" },
+                    codecompanion = { "codecompanion", "path", "buffer" },
+                    codecompanion_input = { "codecompanion" },
+                },
                 providers = {
+                    codecompanion = {
+                        name = "CodeCompanion",
+                        module = "codecompanion.providers.completion.blink",
+                        score_offset = 10,
+                    },
                     laravel = {
                         name = "laravel",
                         module = "blink.compat.source",
@@ -74,7 +85,19 @@ return {
                         name = "minuet",
                         module = "minuet.blink",
                         score_offset = 8,
-                    }
+                    },
+                    obsidian = {
+                        name = "obsidian",
+                        module = "blink.compat.source",
+                    },
+                    obsidian_new = {
+                        name = "obsidian_new",
+                        module = "blink.compat.source",
+                    },
+                    obsidian_tags = {
+                        name = "obsidian_tags",
+                        module = "blink.compat.source",
+                    },
                     -- dadbod = {
                     -- 	name = "Dadbod",
                     -- 	module = "vim_dadbod_completion.blink",

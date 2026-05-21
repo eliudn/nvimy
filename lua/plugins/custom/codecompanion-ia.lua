@@ -41,7 +41,7 @@ return {
                             },
                         },
                         defaults = {
-                            -- auth_method = "gemini-api-key",
+                            auth_method = "gemini-api-key",
                             model = "gemini-3-flash-preview"
                         },
                         env = {
@@ -53,14 +53,28 @@ return {
 
         -- Nueva estructura: interactions en lugar de strategies
         interactions = {
-            chat       = { adapter = "gemini_cli" },
+            chat = {
+                adapter = "gemini_cli",
+                tools = {
+                    opts = {
+                        default_tools = {
+                            "get_diagnostics",
+                            "read_file",
+                            "grep_search",
+                            "insert_edit_into_file",
+                        },
+                    },
+                },
+            },
             inline     = { adapter = "gemini_cli" },
             cmd        = { adapter = "gemini_cli" },
             background = {
-                adapter = "gemini_cli"
+                adapter = "gemini_cli",
+                chat = {
+                    opts = { enabled = true },
+                },
             },
             cli        = {
-                agent = "claude_code",
                 agents = {
                     claude_code = {
                         cmd         = "claude",
@@ -70,7 +84,6 @@ return {
                     },
                 },
             },
-
         },
 
         -- Action palette via snacks (ya lo tienes instalado)
@@ -81,14 +94,14 @@ return {
             chat = {
                 window = {
                     layout = "vertical",
-                    width  = 0.35,
+                    width  = 0.45,
                 },
                 show_token_count = true,
             },
             inline = {
                 diff = {
                     enabled  = true,
-                    provider = "mini_diff",
+                    provider = "default",
                 },
             },
         },
@@ -110,5 +123,9 @@ return {
 
         -- Commit message desde git status
         { "<leader>am", "<cmd>CodeCompanion /commit<cr>",    desc = "AI: Commit message" },
+
+        -- Contexto rápido al chat
+        { "<leader>ab", "<cmd>CodeCompanionChat add<cr>", mode = { "n", "v" }, desc = "AI: Add buffer/selection to chat" },
+        { "<leader>aD", "<cmd>CodeCompanion /lsp<cr>",    mode = "n",          desc = "AI: Fix LSP error (cursor)" },
     },
 }

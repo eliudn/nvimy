@@ -1,6 +1,5 @@
 
 vim.g.mapleader = " "
-vim.g.maplocalleader = "'"
 
 vim.o.number = true
 vim.o.relativenumber = true
@@ -54,6 +53,9 @@ vim.opt.undoreload = 10000
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.g.vimtex_view_method = "zathura"
+
+-- Socket RPC para MCP server (Claude Code puede conectarse via mcp-neovim-server)
+vim.fn.serverstart("/tmp/nvim")
 
 -- nvim-ufo maneja los folds (LSP → indent como fallback, sin treesitter)
 vim.opt.foldmethod     = "expr"
