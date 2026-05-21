@@ -167,6 +167,67 @@ local lua_component = {
     cond = is_lua_project,
 }
 
+-- Componente Claude Code: aparece solo cuando el terminal enfocado corre claude
+local function is_claude_terminal()
+    return vim.bo.buftype == "terminal"
+        and vim.api.nvim_buf_get_name(0):find("claude", 1, true) ~= nil
+end
+
+local _claude_cache = { text = nil, ts = 0 }
+
+local function claude_session_info()
+    local now = os.time()
+    if _claude_cache.text and (now - _claude_cache.ts) < 15 then
+        return _claude_cache.text
+    end
+
+    local path = vim.fn.expand("~/.claude/history.jsonl")
+    local f = io.open(path, "r")
+    if not f then
+        _claude_cache.text = "Claude Code"
+        _claude_cache.ts = now
+        return _claude_cache.text
+    end
+
+    local lines = {}
+    for line in f:lines() do
+        lines[#lines + 1] = line
+        if #lines > 300 then table.remove(lines, 1) end
+    end
+    f:close()
+
+    local latest_sid, msg_count, first_ts = nil, 0, 0
+    for i = #lines, 1, -1 do
+        local ok, e = pcall(vim.json.decode, lines[i])
+        if ok and type(e) == "table" and e.sessionId then
+            if not latest_sid then latest_sid = e.sessionId end
+            if e.sessionId == latest_sid then
+                msg_count = msg_count + 1
+                first_ts  = e.timestamp or first_ts
+            end
+        end
+    end
+
+    local text
+    if latest_sid and msg_count > 0 and first_ts > 0 then
+        local age_min = math.max(1, math.floor(((os.time() * 1000) - first_ts) / 60000))
+        text = string.format("%d↗ %dm", msg_count, age_min)
+    else
+        text = "Claude Code"
+    end
+
+    _claude_cache.text = text
+    _claude_cache.ts   = now
+    return text
+end
+
+local claude_component = {
+    claude_session_info,
+    icon  = { " ", color = { fg = "#CC785C" } },
+    color = { fg = "#E8C9A0" },
+    cond  = is_claude_terminal,
+}
+
 -- Fallback: filetype + encoding si no es UTF-8
 local fallback_component = {
     function()
@@ -182,12 +243,13 @@ local fallback_component = {
     cond = function()
         return not is_laravel() and not is_python() and not is_rust()
             and not is_js() and not is_lua_project()
+            and not is_claude_terminal()
     end,
 }
 
 local y_section = vim.list_extend(
     vim.deepcopy(laravel_components),
-    { python_component, rust_component, js_component, lua_component, fallback_component }
+    { claude_component, python_component, rust_component, js_component, lua_component, fallback_component }
 )
 return {
     "nvim-lualine/lualine.nvim",
