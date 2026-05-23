@@ -55,7 +55,31 @@ vim.opt.writebackup = false
 vim.g.vimtex_view_method = "zathura"
 
 -- Socket RPC para MCP server (Claude Code puede conectarse via mcp-neovim-server)
-vim.fn.serverstart("/tmp/nvim")
+-- pcall para que instancias adicionales no lancen error si /tmp/nvim ya está ocupado
+pcall(vim.fn.serverstart, "/tmp/nvim")
+
+-- -- Atrapa cualquier cambio a laststatus y lo restaura a 3 salvo en dashboards.
+-- local _ls_disabled = { snacks_dashboard = true, dashboard = true, alpha = true }
+-- vim.api.nvim_create_autocmd("OptionSet", {
+--     pattern = "laststatus",
+--     callback = function()
+--         if not _ls_disabled[vim.bo.filetype] and tonumber(vim.v.option_new) ~= 3 then
+--             vim.schedule(function() vim.o.laststatus = 3 end)
+--         end
+--     end,
+-- })
+-- -- WinEnter cubre el caso de ventanas donde laststatus ya estaba mal antes de cambiar.
+-- vim.api.nvim_create_autocmd("WinEnter", {
+--     callback = function()
+--         if not _ls_disabled[vim.bo.filetype] then
+--             vim.schedule(function()
+--                 vim.schedule(function()
+--                     if vim.o.laststatus ~= 3 then vim.o.laststatus = 3 end
+--                 end)
+--             end)
+--         end
+--     end,
+-- })
 
 -- nvim-ufo maneja los folds (LSP → indent como fallback, sin treesitter)
 vim.opt.foldmethod     = "expr"
